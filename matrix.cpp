@@ -323,4 +323,35 @@ bool Matrix::isSymmetric() const{
     return Flag;
 }
     */
+int Matrix::rank(Matrix mat) const {
+	int rows = mat.getRow();
+	int cols = mat.getCol();
+	int rank = 0;
+
+	for (int i = 0, j = 0; i < rows && j < cols; ++j) {
+		//Find pivot in this column
+		int pivot = i;
+		for (;pivot < rows && abs(mat(pivot, j)) < 1e-6;) 
+			++pivot;
+		//If the whole column is zero, move to next column
+		if (pivot == rows) continue;
+		//Swap current row with pivot row
+		if (pivot != i) {
+			for (int c = 0; c < cols; ++c)
+				swap(mat(i, c), mat(pivot, c));
+		}
+		//Eliminate other rows
+		for (int r = 0; r < rows; ++r) {
+			if (r != i) {
+				double factor = mat(r, j) / mat(i, j);
+				for (int c = j; c < cols; ++c)
+					mat(r, c) -= factor * mat(i, c);
+			}
+		}
+		++rank;
+		++i;
+	}
+	return rank;
+}
+
 
