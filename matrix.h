@@ -94,6 +94,7 @@ public:
 
     // new methods (lab 5)
     SquareMatrix isSquare() const;
+    virtual int rank(Matrix mat) const;
 }; // end of class 
 
 //non-member operator
@@ -106,4 +107,5 @@ Matrix transpose(const Matrix& A);
 
     
     
+
 #endif
