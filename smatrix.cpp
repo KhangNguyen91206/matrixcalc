@@ -243,14 +243,15 @@ int SquareMatrix::rank(SquareMatrix smat) const {
 }
 
 Matrix SquareMatrix::x(SquareMatrix A, Matrix b) {
-    assert(A.getSize() == b.getCols());
-    assert(b.getRows() == 1);
-    Matrix x(1, A.getSize());
-    x.zeros();
-    if (!A.isInvertible()) {
-        cout << "This matrix is singular.The system may have no unique solution" << endl;
-        return x;
-    }
-    x = b * A.inverse();
-    return transpose(x);
+	assert(A.getSize() == b.getRows());
+	assert(b.getCols() == 1);
+	Matrix x(A.getSize(), 1);
+	x.zerosM();
+	if (!A.isInvertible()) {
+		cout << "This matrix is singular.The system may have no unique solution" << endl;
+		return x;
+	}
+	x = A.inverse() * b;
+	return x;
 }
+
